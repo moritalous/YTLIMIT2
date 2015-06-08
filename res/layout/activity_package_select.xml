@@ -3,6 +3,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="forest.rice.field.k.ytlimit2.MainActivity"
+    tools:context="forest.rice.field.k.ytlimit2.ui.select.PackageSelectActivity"
     tools:ignore="MergeRootFrame" />
 
