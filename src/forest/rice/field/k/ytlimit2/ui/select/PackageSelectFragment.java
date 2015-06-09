@@ -94,6 +94,13 @@ public class PackageSelectFragment extends ListFragment {
             PackageManager manager = getActivity().getPackageManager();
             List<PackageInfo> packages = manager
                     .getInstalledPackages(PackageManager.GET_ACTIVITIES);
+
+            // Intent i = new Intent();
+            // i.addCategory(Intent.CATEGORY_LAUNCHER);
+            // List<ResolveInfo> info = manager.queryIntentActivities(i,
+            // PackageManager.MATCH_DEFAULT_ONLY);
+            //
+
             return packages;
         }
 

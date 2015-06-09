@@ -24,6 +24,12 @@ public class PackageSelectActivity extends Activity implements OnFragmentInterac
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.package_select, menu);

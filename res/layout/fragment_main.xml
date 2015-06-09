@@ -2,34 +2,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="forest.rice.field.k.ytlimit2.MainActivity$PlaceholderFragment" >
+    tools:context="forest.rice.field.k.ytlimit2.SettingFragment" >
 
-    <LinearLayout 
-        android:layout_height="0dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
         <Button
-        android:id="@+id/select_package_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="Button" />
-    
-        
+            android:id="@+id/select_package_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"
+            android:drawableLeft="@drawable/ic_launcher" />
+
+        <ScrollView
+            android:id="@+id/setting_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="1時間に起動していい回数" />
+
+                <NumberPicker
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal|center"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="回数を超えた時のメッセージ" />
+
+                <EditText
+                    android:id="@+id/message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-    
-    
+
     <Button
         android:id="@+id/create_shortcut_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="OK!!" />
+        android:text="作成" />
 
 </LinearLayout>
