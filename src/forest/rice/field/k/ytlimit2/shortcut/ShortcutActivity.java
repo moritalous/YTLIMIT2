@@ -33,6 +33,7 @@ public class ShortcutActivity extends Activity {
 
         if (packageName == null || uuid == null) {
             finish();
+            moveTaskToBack(true);
             return;
         }
 
@@ -56,6 +57,14 @@ public class ShortcutActivity extends Activity {
         sharedPref.edit().putStringSet(uuid, newHistory).commit();
 
         if (count <= newHistory.size()) {
+
+            // ホームアプリを起動
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            startActivity(intent);
+
             // 回数オーバー
             String tmpMessage;
             if (message == null || message.length() == 0) {
@@ -63,8 +72,9 @@ public class ShortcutActivity extends Activity {
             } else {
                 tmpMessage = message;
             }
+
             Toast.makeText(getApplicationContext(), tmpMessage,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         } else {
             newHistory.add(Long.toString(nowTimeInMillis));
             sharedPref.edit().putStringSet(uuid, newHistory).commit();
@@ -79,5 +89,6 @@ public class ShortcutActivity extends Activity {
         }
 
         finish();
+        moveTaskToBack(true);
     }
 }

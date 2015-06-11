@@ -1,6 +1,7 @@
 
 package forest.rice.field.k.ytlimit2.ui.select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,8 @@ public class PackageSelectFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
+    PackageSelectAsynkTask asynkTask;
+
     public static PackageSelectFragment newInstance() {
         PackageSelectFragment fragment = new PackageSelectFragment();
         return fragment;
@@ -39,7 +43,7 @@ public class PackageSelectFragment extends ListFragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
-        PackageSelectAsynkTask asynkTask = new PackageSelectAsynkTask();
+        asynkTask = new PackageSelectAsynkTask();
         asynkTask.execute();
     }
 
@@ -58,7 +62,11 @@ public class PackageSelectFragment extends ListFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        if (asynkTask.getStatus() == Status.RUNNING) {
+            asynkTask.cancel(true);
+        }
         mListener = null;
+
     }
 
     @Override
@@ -106,9 +114,10 @@ public class PackageSelectFragment extends ListFragment {
 
         @Override
         protected void onPostExecute(List<PackageInfo> result) {
-            // TODO Auto-generated method stub
             super.onPostExecute(result);
-
+            if (result == null) {
+                result = new ArrayList<PackageInfo>();
+            }
             setListAdapter(new PackageSelectAdopter(getActivity(), 0, result));
         }
     }

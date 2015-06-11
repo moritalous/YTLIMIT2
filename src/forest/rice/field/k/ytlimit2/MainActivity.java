@@ -1,15 +1,15 @@
 
 package forest.rice.field.k.ytlimit2;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import forest.rice.field.k.ytlimit2.SettingFragment.OnButtonClickListener;
 
-public class MainActivity extends Activity implements OnButtonClickListener {
+public class MainActivity extends AppCompatActivity implements OnButtonClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,20 @@ public class MainActivity extends Activity implements OnButtonClickListener {
                     .add(R.id.container, new SettingFragment())
                     .commit();
         }
+    }
+
+    // @Override
+    // protected void onUserLeaveHint() {
+    // super.onUserLeaveHint();
+    //
+    // finish();
+    // }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        finish();
     }
 
     @Override

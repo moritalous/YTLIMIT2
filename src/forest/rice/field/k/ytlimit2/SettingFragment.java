@@ -12,8 +12,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +32,7 @@ class SettingFragment extends Fragment {
     private OnButtonClickListener onButtonClickListener = null;
 
     private Button selectPackageButton;
-    private Button createShortcutButton;
+    private FloatingActionButton fab;
     private ViewGroup settingDetailLayout;
     private NumberPicker numberPicker;
     private EditText messageText;
@@ -47,29 +49,11 @@ class SettingFragment extends Fragment {
 
         selectPackageButton = (Button) rootView.findViewById(R.id.select_package_button);
         selectPackageButton.setText("Select Application");
-        selectPackageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PackageSelectActivity.class);
-                startActivityForResult(intent, 9999);
-            }
-        });
+        selectPackageButton.setOnClickListener(selectPackageListener);
 
-        createShortcutButton = (Button) rootView.findViewById(R.id.create_shortcut_button);
-        createShortcutButton.setVisibility(View.INVISIBLE);
-        createShortcutButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (packageInfo != null) {
-                    if (onButtonClickListener != null) {
-                        onButtonClickListener
-                                .createShortcutOnHomeScreen(getCreateShortcutIntent(getShortcutIntent()));
-
-                    }
-                }
-            }
-        });
+        fab = (FloatingActionButton) rootView
+                .findViewById(R.id.create_shortcut_button);
+        fab.setOnClickListener(fabAddListener);
 
         settingDetailLayout = (ViewGroup) rootView.findViewById(R.id.setting_detail);
         settingDetailLayout.setVisibility(View.INVISIBLE);
@@ -112,10 +96,42 @@ class SettingFragment extends Fragment {
             Drawable icon = manager.getApplicationIcon(packageInfo.packageName);
             selectPackageButton.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
 
-            createShortcutButton.setVisibility(View.VISIBLE);
+            fab.setImageResource(R.drawable.ic_tick);
+            fab.setRippleColor(getResources().getColor(R.color.fab_color_2));
+            fab.setOnClickListener(fabTickListener);
+
             settingDetailLayout.setVisibility(View.VISIBLE);
         } catch (NameNotFoundException e) {
         }
+    }
+
+    private OnClickListener fabTickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if (packageInfo != null) {
+                if (onButtonClickListener != null) {
+                    onButtonClickListener
+                            .createShortcutOnHomeScreen(getCreateShortcutIntent(getShortcutIntent()));
+                    getActivity().finish();
+                }
+            }
+        }
+    };
+
+    private OnClickListener fabAddListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            startPackageSelectActivityForResult();
+        }
+    };
+
+    private OnClickListener selectPackageListener = fabAddListener;
+
+    private void startPackageSelectActivityForResult() {
+        Intent intent = new Intent(getActivity(), PackageSelectActivity.class);
+        startActivityForResult(intent, 9999);
     }
 
     private Intent getShortcutIntent() {

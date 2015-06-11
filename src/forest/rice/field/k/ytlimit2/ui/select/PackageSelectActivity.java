@@ -1,16 +1,17 @@
 
 package forest.rice.field.k.ytlimit2.ui.select;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import forest.rice.field.k.ytlimit2.R;
 import forest.rice.field.k.ytlimit2.ui.select.PackageSelectFragment.OnFragmentInteractionListener;
 
-public class PackageSelectActivity extends Activity implements OnFragmentInteractionListener {
+public class PackageSelectActivity extends AppCompatActivity implements
+        OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
