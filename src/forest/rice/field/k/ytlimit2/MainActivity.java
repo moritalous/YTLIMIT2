@@ -36,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements OnButtonClickList
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        MenuItem actionItem = menu.add("Source");
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
         return true;
     }
 
